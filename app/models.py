@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import Column, DateTime, Integer, String, Text
 
@@ -11,4 +11,8 @@ class Note(Base):
      id = Column(Integer, primary_key=True, index=True)
      title = Column(String(100), nullable=False)
      content = Column(Text, nullable=False)
-     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+     created_at = Column(
+          DateTime,
+          default=lambda: datetime.now(timezone.utc),
+          nullable=False
+          )
